@@ -1,0 +1,69 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0; /* Optional background color */
+}
+
+#banner {
+    width: 100%;
+    background-color: #89ddf5; /* Banner background color */
+    color: black; /* Text color for the banner */
+    text-align: center;
+    padding: 20px 0; /* Add padding for the banner */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for the banner */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem; /* Adjust font size */
+}
+
+#pageDiv {
+    flex: 1; /* Fill the remaining space */
+    background-color: #fff5e6; /* Optional background color for the game area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameDiv {
+    width: auto; /* Allow width to adjust based on height */
+    height: 100%; /* Extend from top to bottom */
+    aspect-ratio: 4 / 5; /* Maintain a 4:5 vertical aspect ratio */
+    background-color: #d4e6f1; /* Optional background color for the game area */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for the gameDiv */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-end; /* Position pokeTeam at the bottom */
+    align-items: center; /* Center content horizontally */
+    padding: 0; /* Remove padding inside gameDiv */
+}
+
+#pokeTeam {
+    display: flex;
+    justify-content: space-between; /* Evenly space the squares */
+    align-items: center;
+    width: 100%; /* Take full width of gameDiv */
+    background-color: #f8f9fa; /* Optional background for pokeTeam */
+    padding: 0; /* Remove padding inside pokeTeam */
+    margin: 0; /* Remove margins around pokeTeam */
+    box-shadow: none; /* Remove shadow for pokeTeam */
+    border-radius: 0; /* Remove rounded corners */
+}
+
+#pokeTeam .pokeSquare {
+    flex: 1; /* Make squares evenly sized */
+    aspect-ratio: 1; /* Ensure squares maintain a 1:1 aspect ratio */
+    background-color: #777; /* Optional background for squares */
+    border: 1px solid #ccc; /* Optional border for squares */
+    margin: 0; /* Remove spacing between squares */
+    box-shadow: none; /* Remove shadow for squares */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0; /* Remove rounded corners */
+}
