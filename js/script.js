@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     pokeSquares.forEach(square => {
         // Add egg image to each pokeSquare
         const img = document.createElement('img');
-        img.src = '/assets/egg.png';
+        img.src = 'assets/egg.png';
         img.style.width = '100%';
         img.style.height = '100%';
         img.style.objectFit = 'contain';
