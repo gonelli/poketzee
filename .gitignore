@@ -1,2 +1,4 @@
 /.env
-/assets/pkmn
+/assets/
+/data/
+/ts/

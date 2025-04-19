@@ -84,7 +84,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: #f8f9fa;
+    background-color: transparent;
     padding: 0;
     margin: 0;
     box-shadow: none;
@@ -101,7 +101,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0;
+    border-radius: 20%;
 }
 
 #pokeTeam .pokeSquare img {
