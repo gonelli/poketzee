@@ -2,11 +2,11 @@
     --banner-color: #89ddf5;
     --banner-text-color: black;
     --game-area-bg-color: red;
-    --poke-square-bg-color: #777;
-    --poke-square-border-color: #ccc;
+    --teammate-bg-color: #777;
+    --teammate-border-color: #ccc;
     touch-action: pan-x pan-y; /*Disable zoom*/
 
-    /* Disable selection */
+    /* Disable selection of elements */
    -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
@@ -55,7 +55,7 @@ html, body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     padding: 0;
     max-width: 100%;
@@ -79,7 +79,7 @@ html, body {
     }
 }
 
-#pokeTeam {
+.rowOfSquares, #scoreboard {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,11 +91,40 @@ html, body {
     border-radius: 0;
 }
 
-#pokeTeam .pokeSquare {
+#scoreboard {
+    flex-direction: column; /* Stack rows vertically */
+}
+
+.scoreBug {
+    flex-direction: column;
+}
+
+.scoreBugText {
+    background-color: rgba(255, 192, 203, 0.5);
+    width: 80%;
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+}
+
+.scoreBugIcon {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: auto;
     aspect-ratio: 1;
-    background-color: var(--poke-square-bg-color);
-    border: 1px solid var(--poke-square-border-color);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+}
+
+.rectangleInRow {
+    flex: 1;
+    aspect-ratio: .8;
+    background-color: var(--teammate-bg-color);
+    border: 1px solid var(--teammate-border-color);
     margin: 0;
     box-shadow: none;
     display: flex;
@@ -104,10 +133,23 @@ html, body {
     border-radius: 20%;
 }
 
-#pokeTeam .pokeSquare img {
+.squareInRow {
+    flex: 1;
+    aspect-ratio: 1;
+    background-color: var(--teammate-bg-color);
+    border: 1px solid var(--teammate-border-color);
+    margin: 0;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+}
+
+#pokeTeam .teammate img {
     pointer-events: none; /* Prevent interaction with the image */
 }
 
-.pokeSquare-active {
+.teammate-active {
     background-color: green !important;
 }

@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
         gameDiv.style.backgroundColor = '#d4e6f1'; // blue = js working
     }
 
-    const pokeSquares = document.querySelectorAll('.pokeSquare');
-    pokeSquares.forEach(square => {
-        // Add egg image to each pokeSquare
+    const teammates = document.querySelectorAll('.teammate');
+    teammates.forEach(square => {
+        // Add egg image to each teammate
         const img = document.createElement('img');
         img.src = 'assets/egg.png';
         img.style.width = '100%';
@@ -15,125 +15,168 @@ document.addEventListener('DOMContentLoaded', function() {
         square.appendChild(img);
 
         square.addEventListener('click', function() {
-            this.classList.toggle('pokeSquare-active');
+            this.classList.toggle('teammate-active');
         });
     });
 });
 
 // Global variable to store unzipped data
-let allImages;
+let fetchedData;
 let fullDex;
-let trimDex;
+let trimmedDex;
+let teammates = new Array(6).fill(null);
 
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Await zip file metadata retrieval
-        const response = await fetch('assets/pkmn.zip');
-        if (!response.ok) throw new Error('Failed to fetch pkmn.zip');
+        const response = await fetch('assets/dataset.zip');
+        if (!response.ok) throw new Error('Failed to fetch dataset.zip');
 
         // Await daata retrieval and unzip
-        allImages = fflate.unzipSync(new Uint8Array(await response.arrayBuffer()));
-
-        // Assign random images to pokeSquares
-        assignRandomImagesToPokeSquares();
+        fetchedData = fflate.unzipSync(new Uint8Array(await response.arrayBuffer()));
     } catch (error) {
-        console.error('Error unzipping pkmn.zip:', error);
+        console.error('Error unzipping dataset.zip:', error);
     }
+    
+    if (fetchedData && fetchedData['dex.csv']) {
+        const reader = new FileReader();
 
-    try {
-        const response = await fetch('data/dex.csv');
-        if (!response.ok) throw new Error('Failed to fetch dex.csv');
+        reader.onload = function(event) {
+            fullDex = Papa.parse(event.target.result, { header: true }).data;
+            // Assign random images to teammates
+            trimDex();
+            roll();
+        };
 
-        fullDex = Papa.parse(await response.text(), { header: true }).data;
+        reader.onerror = function(error) {
+            console.error('Error reading dex.csv:', error);
+        };
 
-        console.log(fullDex.filter(row => row["Type 1"] === 'Fire'));
-        console.log(fullDex);
-        // filterDexByUniqueColumn("Ndex");
-        reduceDex();
-    } catch (error) {
-        console.error('Error processing dex.csv:', error);
+        reader.readAsText(new Blob([fetchedData['dex.csv']], { type: 'text/csv' }));
+    } else {
+        console.error('dex.csv not found.');
     }
 });
 
-// Function to assign random images to inactive pokeSquares
-function assignRandomImagesToPokeSquares() {
-    if (!allImages) {
+// Function to assign random images to inactive teammates
+function roll() {
+    if (!fetchedData) {
         console.warn('Unzipped data is not yet available.');
         return;
     }
-
-    const inactivePokeSquares = document.querySelectorAll('.pokeSquare:not(.pokeSquare-active)');
-    const keys = Object.keys(allImages).filter(key => key.endsWith('n.png'));
-    if (keys.length < inactivePokeSquares.length) {
-        console.warn('Not enough images in the unzipped data to assign to all inactive pokeSquares.');
-        return;
+    else if (!trimmedDex || trimmedDex.length === 0) {
+        console.warn('trimmedDex is not available or empty.');
+        return null;
     }
-
-    const randomKeys = keys.sort(() => 0.5 - Math.random()).slice(0, inactivePokeSquares.length);
-    inactivePokeSquares.forEach((square, index) => {
-        
-        // if (!trimDex || trimDex.length === 0) {
-        //     console.warn('trimDex is not available or empty.');
-        //     return null;
-        // }
-        // const randomIndex = Math.floor(Math.random() * trimDex.length);
-
-        const blob = new Blob([allImages[randomKeys[index]]], { type: 'image/png' });
-        const imgUrl = URL.createObjectURL(blob);
-
+    document.querySelectorAll('.teammate')
+    .forEach((square, index) => {
+        if (square.classList.contains('teammate-active')) {
+            return;
+        }
         const img = square.querySelector('img');
         if (img) {
-            img.src = imgUrl;
+            const randomIndex = Math.floor(Math.random() * trimmedDex.length);
+            const teammate = trimmedDex[randomIndex];
+            teammates[index] = teammate;
+            const blob = new Blob([fetchedData[teammate["Img Name"]]], 
+                { type: 'image/png' });
+            img.src = URL.createObjectURL(blob);
         }
     });
+    setGenScore(document.getElementById('topScore2'));
+    setColorScore(document.getElementById('topScore3'));
+    setTypeScore(document.getElementById('topScore1'));
 }
 
-// Function to filter dex by removing rows with duplicate values in a specific column
-function filterDexByUniqueColumn(columnName) {
-    if (!fullDex) {
-        console.warn('Dex data is not yet available.');
-        return;
-    }
-
-    const seen = new Set();
-    fullDex = fullDex.filter(row => {
-        if (seen.has(row[columnName])) {
-            return false;
-        }
-        seen.add(row[columnName]);
-        return true;
-    });
-
-    console.log(`Filtered dex with unique values in column '${columnName}':`, fullDex);
-}
-
-function reduceDex() {
+function trimDex() {
     const megaRate = 0.0;
-    const gmaxRate = 0.0;
-    const galarRate = 0.0;
-
     const included = new Set();
-    
-    trimDex = shuffle(fullDex).filter(row => {
+    trimmedDex = shuffle(fullDex).filter(row => {
         if (included.has(row["Ndex"])) return false;
         included.add(row["Ndex"]);
         return true
         const ndex = parseInt(row["Ndex"]);
-        const isMega = ndex >= 10000 && ndex < 20000;
-        const isGmax = ndex >= 20000 && ndex < 30000;
-        const isGalar = ndex >= 30000 && ndex < 40000;
-
         // Generate random true/false based on percentage
         const randomTrueFalse = (rate) => Math.random() < rate;
-
         if (isMega && randomTrueFalse(megaRate)) return true;
-        if (isGmax && randomTrueFalse(gmaxRate)) return true;
-        if (isGalar && randomTrueFalse(galarRate)) return true;
-
-        return !isMega && !isGmax && !isGalar;
     });
+}
 
-    console.log('Reduced dex:', filteredDex);
+function setGenScore(scorebug) {
+    const genScores = new Map();
+    let maxScore = 0;
+
+    for (const teammate of teammates) {
+        if (!teammate) {
+            console.warn('Teammate is null or undefined.');
+            return; // Exit the entire function
+        }
+
+        const gen = parseInt(teammate["Gen"]);
+        const score = (genScores.get(gen) || 0) + 1;
+        genScores.set(gen, score);
+
+        maxScore = Math.max(maxScore, score);
+    }
+    setScorebugText(scorebug, maxScore);
+    return maxScore;
+}
+
+function setColorScore(scorebug) {
+    const colorScores = new Map();
+    let maxScore = 0;
+
+    for (const teammate of teammates) {
+        if (!teammate) {
+            console.warn('Teammate is null or undefined.');
+            return; // Exit the entire function
+        }
+
+        const color = teammate["Color"];
+        const score = (colorScores.get(color) || 0) + 1;
+        colorScores.set(color, score);
+
+        maxScore = Math.max(maxScore, score);
+    }
+    setScorebugText(scorebug, maxScore);
+    return maxScore;
+}
+
+function setTypeScore(scorebug) {
+    const typeScores = new Map();
+    let maxScore = 0;
+
+    for (const teammate of teammates) {
+        if (!teammate) {
+            console.warn('Teammate is null or undefined.');
+            return; // Exit the entire function
+        }
+
+        let score2 = 0;
+        const type1 = teammate["Type 1"];
+        const score1 = (typeScores.get(type1) || 0) + 1;
+        typeScores.set(type1, score1);
+
+        const type2 = teammate["Type 2"];
+        if (type2) {
+            score2 = (typeScores.get(type2) || 0) + 1;
+            typeScores.set(type2, score1);
+        }
+
+        maxScore = Math.max(maxScore, score1, score2);
+    }
+    setScorebugText(scorebug, maxScore);
+    return maxScore;
+}
+
+function setScorebugText(scorebug, score) {
+    if (!scorebug) return false;
+    if (scorebug instanceof HTMLElement) {
+        scorebug.getElementsByClassName('scoreBugText')[0].innerText = `${score}`;
+    } else {
+        console.warn('scorebug is not an HTML element.');
+        return false;
+    }
 }
 
 function shuffle(array) {
@@ -145,14 +188,38 @@ function shuffle(array) {
     return array;
 }
 
-// Example usage of unzippedData elsewhere in the script
-document.addEventListener('click', function() {
-    if (allImages) {
-        console.log('Unzipped data is accessible:', Object.keys(allImages));
-        assignRandomImagesToPokeSquares(); // Call the function to assign images
-    } else {
-        console.log('Unzipped data is not yet available.');
+function spin(htmlElems) {
+    if (!htmlElems) return false;
+
+    const toSpinArray = Array.from(htmlElems);
+    toSpinArray.forEach(elem => {
+        if (!elem || !(elem instanceof HTMLElement)) return false;
+        elem.style.transition = 'transform 0.35s ease-in-out';
+        elem.style.transform = 'rotate(360deg)';
+    });
+
+    // Reset the rotation for all elements after the animation
+    setTimeout(() => {
+        toSpinArray.forEach(elem => {
+            if (!elem || !(elem instanceof HTMLElement)) return false;
+            elem.style.transition = '';
+            elem.style.transform = '';
+        });
+    }, 350);
+
+    return true;
+}
+
+document.addEventListener('click', function(event) {
+    const gameDiv = document.getElementById('pokeTeam');
+    if (gameDiv && !gameDiv.contains(event.target)) {
+        if (fetchedData) {
+            roll();
+        } else {
+            console.warn('Unzipped data is not yet available.');
+        }
     }
+    // spin(document.getElementsByClassName('teammate'));
 });
 
 document.addEventListener('dblclick', function(event) {
