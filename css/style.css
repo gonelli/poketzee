@@ -1,7 +1,7 @@
 ﻿:root {
     --banner-color: #89ddf5;
     --banner-text-color: black;
-    --game-area-bg-color: red;
+    --game-area-bg-color: #d4e6f1;
     --teammate-bg-color: #777;
     --teammate-border-color: #ccc;
     touch-action: pan-x pan-y; /*Disable zoom*/
@@ -95,11 +95,11 @@ html, body {
     flex-direction: column; /* Stack rows vertically */
 }
 
-.scoreBug {
+.scorebug {
     flex-direction: column;
 }
 
-.scoreBugText {
+.scorebugText {
     background-color: rgba(255, 192, 203, 0.5);
     width: 80%;
     flex: 1;
@@ -109,7 +109,7 @@ html, body {
     border-radius: 20%;
 }
 
-.scoreBugIcon {
+.scorebugIcon {
     background-color: rgba(255, 255, 255, 0.5);
     height: auto;
     aspect-ratio: 1;
@@ -152,4 +152,8 @@ html, body {
 
 .teammate-active {
     background-color: green !important;
+}
+
+.scorebugIcon-active {
+    background-color: lightgreen !important;
 }

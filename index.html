@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/fflate.min.js"></script>
     <script src="js/papaparse.min.js"></script>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/main.js"></script>
 
     <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" /> -->
     
 
     <!-- Required for iOS standalone behavior -->
@@ -32,55 +32,55 @@
         <div id="gameDiv">
             <div id="scoreboard">
                 <div id="scoreboardTop" class="rowOfSquares">
-                    <div id="topScore1" class="scoreBug rectangleInRow">
-                        <div id="topScore1Text" class="scoreBugText">0</div>
-                        <div id="topScore1Icon" class="scoreBugIcon">Typing</div>
+                    <div id="topScore1" class="scorebug rectangleInRow">
+                        <div id="topScore1Text" class="scorebugText">0</div>
+                        <div id="topScore1Icon" class="scorebugIcon">Typing</div>
                     </div>
-                    <div id="topScore2" class="scoreBug rectangleInRow">
-                        <div id="topScore2Text" class="scoreBugText">0</div>
-                        <div id="topScore2Icon" class="scoreBugIcon">Gen</div>
+                    <div id="topScore2" class="scorebug rectangleInRow">
+                        <div id="topScore2Text" class="scorebugText">0</div>
+                        <div id="topScore2Icon" class="scorebugIcon">Gen</div>
                     </div>
-                    <div id="topScore3" class="scoreBug rectangleInRow">
-                        <div id="topScore3Text" class="scoreBugText">0</div>
-                        <div id="topScore3Icon" class="scoreBugIcon">Color</div>
+                    <div id="topScore3" class="scorebug rectangleInRow">
+                        <div id="topScore3Text" class="scorebugText">0</div>
+                        <div id="topScore3Icon" class="scorebugIcon">Color</div>
                     </div>
-                    <div id="topScore4" class="scoreBug rectangleInRow">
-                        <div id="topScore4Text" class="scoreBugText">0</div>
-                        <div id="topScore4Icon" class="scoreBugIcon">Stage</div>
+                    <div id="topScore4" class="scorebug rectangleInRow">
+                        <div id="topScore4Text" class="scorebugText">0</div>
+                        <div id="topScore4Icon" class="scorebugIcon">Stage</div>
                     </div>
-                    <div id="topScore5" class="scoreBug rectangleInRow ">
-                        <div id="topScore5Text" class="scoreBugText">0</div>
-                        <div id="topScore5Icon" class="scoreBugIcon"></div>
+                    <div id="topScore5" class="scorebug rectangleInRow ">
+                        <div id="topScore5Text" class="scorebugText">0</div>
+                        <div id="topScore5Icon" class="scorebugIcon"></div>
                     </div>
-                    <div id="topScore6" class="scoreBug rectangleInRow">
-                        <div id="topScore6Text" class="scoreBugText">0</div>
-                        <div id="topScore6Icon" class="scoreBugIcon"></div>
+                    <div id="topScore6" class="scorebug rectangleInRow">
+                        <div id="topScore6Text" class="scorebugText">0</div>
+                        <div id="topScore6Icon" class="scorebugIcon"></div>
                     </div>
                 </div>
                 <div id="scoreboardBottom" class="rowOfSquares">
-                    <div id="bottomScore1" class="scoreBug rectangleInRow">
-                        <div id="bottomScore1Text" class="scoreBugText">0</div>
-                        <div id="bottomScore1Icon" class="scoreBugIcon">3K</div>
+                    <div id="bottomScore1" class="scorebug rectangleInRow">
+                        <div id="bottomScore1Text" class="scorebugText">0</div>
+                        <div id="bottomScore1Icon" class="scorebugIcon">3K</div>
                     </div>
-                    <div id="bottomScore2" class="scoreBug rectangleInRow">
-                        <div id="bottomScore2Text" class="scoreBugText">0</div>
-                        <div id="bottomScore2Icon" class="scoreBugIcon">4K</div>
+                    <div id="bottomScore2" class="scorebug rectangleInRow">
+                        <div id="bottomScore2Text" class="scorebugText">0</div>
+                        <div id="bottomScore2Icon" class="scorebugIcon">4K</div>
                     </div>
-                    <div id="bottomScore3" class="scoreBug rectangleInRow">
-                        <div id="bottomScore3Text" class="scoreBugText">0</div>
-                        <div id="bottomScore3Icon" class="scoreBugIcon">FH</div>
+                    <div id="bottomScore3" class="scorebug rectangleInRow">
+                        <div id="bottomScore3Text" class="scorebugText">0</div>
+                        <div id="bottomScore3Icon" class="scorebugIcon">FH</div>
                     </div>
-                    <div id="bottomScore4" class="scoreBug rectangleInRow">
-                        <div id="bottomScore4Text" class="scoreBugText">0</div>
-                        <div id="bottomScore4Icon" class="scoreBugIcon">Sm</div>
+                    <div id="bottomScore4" class="scorebug rectangleInRow">
+                        <div id="bottomScore4Text" class="scorebugText">0</div>
+                        <div id="bottomScore4Icon" class="scorebugIcon">Sm</div>
                     </div>
-                    <div id="bottomScore5" class="scoreBug rectangleInRow">
-                        <div id="bottomScore5Text" class="scoreBugText">0</div>
-                        <div id="bottomScore5Icon" class="scoreBugIcon">Lg</div>
+                    <div id="bottomScore5" class="scorebug rectangleInRow">
+                        <div id="bottomScore5Text" class="scorebugText">0</div>
+                        <div id="bottomScore5Icon" class="scorebugIcon">Lg</div>
                     </div>
-                    <div id="bottomScore6" class="scoreBug rectangleInRow">
-                        <div id="bottomScore6Text" class="scoreBugText">0</div>
-                        <div id="bottomScore6Icon" class="scoreBugIcon">Ch</div>
+                    <div id="bottomScore6" class="scorebug rectangleInRow">
+                        <div id="bottomScore6Text" class="scorebugText">0</div>
+                        <div id="bottomScore6Icon" class="scorebugIcon">Ch</div>
                     </div>
                 </div>
             </div>

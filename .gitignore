@@ -1,4 +1,4 @@
 /.env
-/assets/
-/data/
-/ts/
+/assets/dataset
+/assets/cube.png
+/ts
